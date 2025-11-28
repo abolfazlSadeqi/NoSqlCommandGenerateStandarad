@@ -1,0 +1,117 @@
+﻿@using Core
+@model MongoBulkViewModel
+@{
+    ViewData["Title"] = "MongoDB Bulk Operations";
+}
+
+<div class="card-dark mt-4">
+        <h3 class="mb-3">MongoDB Bulk Operations</h3>
+
+        <form asp-action="GenerateBulkScript" method="post">
+
+            <!-- Basic info -->
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label>Database</label>
+                    <input asp-for="DatabaseName" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label>Collection</label>
+                    <input asp-for="CollectionName" class="form-control" />
+                </div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <ul class="nav nav-pills mb-3" id="actionTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" data-val="insertMany" href="#insertTab">Insert Many</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" data-val="updateMany" href="#updateTab">Update Many</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" data-val="deleteMany" href="#deleteTab">Delete Many</a>
+                </li>
+            </ul>
+
+            <input type="hidden" asp-for="OperationType" id="OperationType" />
+
+            <div class="tab-content">
+
+                <!-- INSERT MANY -->
+                <div id="insertTab" class="tab-pane fade show active">
+
+                    <h5>Documents</h5>
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th>JSON Document</th>
+                            </tr>
+                        </thead>
+                        <tbody id="insertTable">
+                            <tr>
+                                <td><textarea name="InsertDocuments[0]" rows="3" class="form-control json-box">{ "name": "Ali" }</textarea></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button type="button" class="btn btn-outline-light" onclick="addInsertRow()">+ Add Document</button>
+
+                </div>
+
+                <!-- UPDATE MANY -->
+                <div id="updateTab" class="tab-pane fade">
+
+                    <h5>Filter JSON</h5>
+                    <textarea asp-for="UpdateFilterJson" rows="4" class="form-control json-box"
+                              placeholder='{ "age": { "$gt": 20 } }'></textarea>
+
+                    <h5 class="mt-3">Update JSON</h5>
+                    <textarea asp-for="UpdateJson" rows="4" class="form-control json-box"
+                              placeholder='{ "$set": { "active": true } }'></textarea>
+
+                </div>
+
+                <!-- DELETE MANY -->
+                <div id="deleteTab" class="tab-pane fade">
+
+                    <h5>Filter JSON</h5>
+                    <textarea asp-for="DeleteFilterJson" rows="4" class="form-control json-box"
+                              placeholder='{ "status": "inactive" }'></textarea>
+
+                </div>
+
+            </div>
+
+            <button class="btn btn-success w-100 mt-3">Generate Script</button>
+
+        </form>
+ 
+
+    @await Html.PartialAsync("_ScriptResult", Model)
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        let insertIndex = 1;
+        function addInsertRow() {
+            let row =
+                `<tr><td>
+                    <textarea name="InsertDocuments[${insertIndex}]" rows="3" class="form-control json-box">{ }</textarea>
+                </td></tr>`;
+            document.getElementById("insertTable").insertAdjacentHTML("beforeend", row);
+            insertIndex++;
+        }
+
+        document.querySelectorAll("#actionTabs .nav-link").forEach(btn => {
+            btn.addEventListener("click", function () {
+                document.getElementById("OperationType").value = this.getAttribute("data-val");
+            });
+        });
+        document.getElementById("OperationType").value = "insertMany";
+
+
+    </script>
+
+
+}

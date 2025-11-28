@@ -1,0 +1,17 @@
+﻿@using Core
+@model RedisACLListViewModel
+
+<div class="card-dark mt-4">
+        <h3>ACL LIST</h3>
+        <pre style="background:#111; color:#8aff80; padding:15px; border-radius:8px;">
+
+               @await Html.PartialAsync("_ScriptResult", Model)
+
+        </pre>
+    
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

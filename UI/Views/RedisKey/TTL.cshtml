@@ -1,0 +1,35 @@
+﻿@using Core
+@model RedisKeyTTLViewModel
+<div class="card-dark mt-4">
+        <h3>Set or Remove TTL</h3>
+
+        <form method="post" class="row g-3">
+
+            <div class="col-md-2">
+                <label>Database</label>
+                <input asp-for="DatabaseNumber" class="form-control bg-secondary text-light" />
+            </div>
+
+            <div class="col-md-4">
+                <label>Key</label>
+                <input asp-for="Key" class="form-control bg-secondary text-light" />
+            </div>
+
+            <div class="col-md-4">
+                <label>TTL (Seconds)</label>
+                <input asp-for="TTLSeconds" class="form-control bg-secondary text-light" placeholder="Empty = remove TTL" />
+            </div>
+
+            <div class="col-12">
+            <button class="btn btn-success w-100 mt-3">Generate Script</button>
+            </div>
+        </form>
+
+        @await Html.PartialAsync("_ScriptResult", Model)
+
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

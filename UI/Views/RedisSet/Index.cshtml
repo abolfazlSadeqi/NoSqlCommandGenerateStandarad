@@ -1,0 +1,58 @@
+﻿@using Core
+@model RedisSetOperationViewModel
+<div class="card-dark mt-4">
+        <h3>Redis Sets & Sorted Sets Operations</h3>
+        <form method="post" class="row g-3">
+
+            <div class="col-md-4">
+                <label>Key</label>
+                <input asp-for="Key" class="form-control bg-secondary text-light" />
+            </div>
+            <div class="col-md-4">
+                <label>Value</label>
+                <input asp-for="Value" class="form-control bg-secondary text-light" />
+            </div>
+            <div class="col-md-2">
+                <label>Score (ZADD)</label>
+                <input asp-for="Score" class="form-control bg-secondary text-light" type="number" step="0.01" />
+            </div>
+            <div class="col-md-2">
+                <label>Start (ZRANGE)</label>
+                <input asp-for="Start" class="form-control bg-secondary text-light" type="number" />
+            </div>
+            <div class="col-md-2">
+                <label>Stop (ZRANGE)</label>
+                <input asp-for="Stop" class="form-control bg-secondary text-light" type="number" />
+            </div>
+            <div class="col-md-2">
+                <label>Min Score (ZRANGEBYSCORE)</label>
+                <input asp-for="MinScore" class="form-control bg-secondary text-light" type="number" step="0.01" />
+            </div>
+            <div class="col-md-2">
+                <label>Max Score (ZRANGEBYSCORE)</label>
+                <input asp-for="MaxScore" class="form-control bg-secondary text-light" type="number" step="0.01" />
+            </div>
+
+            <div class="col-12 mt-3">
+                <div class="btn-group flex-wrap" role="group">
+                    <button name="actionType" value="SADD" class="btn btn-info">SADD</button>
+                    <button name="actionType" value="SREM" class="btn btn-danger">SREM</button>
+                    <button name="actionType" value="SMEMBERS" class="btn btn-secondary">SMEMBERS</button>
+                    <button name="actionType" value="SCARD" class="btn btn-warning">SCARD</button>
+                    <button name="actionType" value="ZADD" class="btn btn-primary">ZADD</button>
+                    <button name="actionType" value="ZREM" class="btn btn-danger">ZREM</button>
+                    <button name="actionType" value="ZRANGE" class="btn btn-success">ZRANGE</button>
+                    <button name="actionType" value="ZRANGEBYSCORE" class="btn btn-dark">ZRANGEBYSCORE</button>
+                </div>
+            </div>
+        </form>
+
+
+        @await Html.PartialAsync("_ScriptResult", Model)
+    
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

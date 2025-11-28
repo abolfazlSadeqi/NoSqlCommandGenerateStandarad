@@ -1,0 +1,79 @@
+﻿@using Core
+@model MongoDocumentDeleteViewModel
+@{
+    ViewData["Title"] = "Delete Document";
+}
+
+<div class="card-dark mt-4">
+   
+        <h4>Delete Document(s) from Collection</h4>
+
+        <form asp-action="Delete" method="post">
+            <div class="row g-3">
+
+                <div class="col-md-4">
+                    <label asp-for="DatabaseName" class="form-label">Database</label>
+                    <input asp-for="DatabaseName" class="form-control" placeholder="Database Name" />
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="CollectionName" class="form-label">Collection</label>
+                    <input asp-for="CollectionName" class="form-control" placeholder="Collection Name" />
+                </div>
+
+                <div class="col-md-4">
+                    <select name="IsMultiple" class="form-control">
+                      
+                        @if (Model.IsMultiple == false)
+                        {
+                            <option value="false" selected>false</option>
+                        }
+                        else
+                        {
+                            <option value="false">false</option>
+                        }
+                        @if (Model.IsMultiple)
+                        {
+                            <option value="true" selected>True</option>
+                        }
+                        else
+                        {
+                            <option value="true">True</option>
+                        }
+
+                    </select>
+                  
+                <label class="form-check-label">IsMultiple</label>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="WriteConcern" class="form-label">Write Concern</label>
+                    <select asp-for="WriteConcern" class="form-select">
+                        <option value="">Default</option>
+                        <option value="majority">majority</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="FilterJson" class="form-label">Filter JSON</label>
+                    <textarea asp-for="FilterJson" rows="4" class="form-control"
+                              placeholder='{ "status": "inactive" }'></textarea>
+                </div>
+
+                <div class="col-12 mt-2">
+                    <button class="btn btn-danger w-100">Generate Delete Script</button>
+                </div>
+
+            </div>
+        </form>
+
+        @await Html.PartialAsync("_ScriptResult", Model)
+   
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

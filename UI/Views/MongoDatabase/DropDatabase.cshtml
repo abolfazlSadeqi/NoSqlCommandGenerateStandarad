@@ -1,0 +1,60 @@
+﻿@model Core.MongoDropDatabaseViewModel
+@{
+    ViewData["Title"] = "Delete MongoDB Database";
+}
+
+
+<div class="card-dark mt-4">
+    <h3 class="mb-3">Delete MongoDB Database</h3>
+
+    <form asp-action="DropDatabase" method="post">
+        <div class="row g-3">
+
+            <div class="col-md-6">
+                <label asp-for="DatabaseName" class="form-label"></label>
+                <input asp-for="DatabaseName" class="form-control" placeholder="Example: MyAppDB" />
+                <span asp-validation-for="DatabaseName" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="ForceDelete" class="form-label">Force Delete</label>
+                <div class="form-check mt-2">
+
+
+                    <select name="ForceDelete" class="form-control">
+                      
+
+                        @if (Model.ForceDelete == false)
+                        {
+                            <option value="false" selected>false</option>
+                        }
+                        else
+                        {
+                            <option value="false">false</option>
+                        }
+                        @if (Model.ForceDelete)
+                        {
+                            <option value="true" selected>True</option>
+                        }
+                        else
+                        {
+                            <option value="true">True</option>
+                        }
+                    </select>
+                    <label asp-for="ForceDelete" class="form-check-label">Drop only if exists</label>
+                </div>
+            </div>
+
+            <div class="col-12 mt-3">
+                <button class="btn btn-danger w-100">Generate Delete Script</button>
+            </div>
+        </div>
+    </form>
+
+    @await Html.PartialAsync("_ScriptResult", Model)
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,26 @@
+﻿@using Core
+@model RedisKeyPersistViewModel
+<div class="card-dark mt-4">
+        <h3>Persist Key (Remove TTL)</h3>
+        <form method="post" class="row g-3">
+            <div class="col-md-3">
+                <label>Database</label>
+                <input asp-for="DatabaseNumber" class="form-control bg-secondary text-light" />
+            </div>
+            <div class="col-md-6">
+                <label>Key</label>
+                <input asp-for="Key" class="form-control bg-secondary text-light" />
+            </div>
+            <div class="col-12">
+            <button class="btn btn-success w-100 mt-3">Generate Script</button>
+            </div>
+        </form>
+
+        @await Html.PartialAsync("_ScriptResult", Model)
+    
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

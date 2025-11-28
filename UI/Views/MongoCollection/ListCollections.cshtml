@@ -1,0 +1,51 @@
+﻿@model Core.MongoListCollectionsViewModel
+@{
+    ViewData["Title"] = "List MongoDB Collections";
+}
+
+<div class="card-dark mt-4">
+
+    <h3 class="mb-3">List MongoDB Collections</h3>
+
+    <form asp-action="ListCollections" method="post">
+        <div class="row g-3">
+
+            <div class="col-md-6">
+                <label asp-for="DatabaseName"></label>
+                <input asp-for="DatabaseName" class="form-control" placeholder="Example: AppDB" />
+                <span asp-validation-for="DatabaseName" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="SearchKeyword"></label>
+                <input asp-for="SearchKeyword" class="form-control" placeholder="Optional search keyword" />
+            </div>
+
+            <div class="col-md-12">
+                <button class="btn btn-success w-100 mt-3">Generate Script</button>
+            </div>
+
+        </div>
+    </form>
+
+    @await Html.PartialAsync("_ScriptResult", Model)
+
+    @if (Model.Collections != null && Model.Collections.Length > 0)
+    {
+        <hr />
+        <h5>Collections Preview</h5>
+        <div class="collection-list">
+            <ul>
+                @foreach (var c in Model.Collections)
+                {
+                    <li>@c</li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

@@ -1,0 +1,76 @@
+﻿@using Core
+@model RedisDatabaseViewModel
+<div class="card-dark mt-4">
+        <h3>Redis Database Manager</h3>
+
+        <form method="post">
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    <label>Select Database (0–15)</label>
+                    <input asp-for="DatabaseNumber" type="number" min="0" max="15" class="form-control" />
+                </div>
+
+                <div class="col-md-4">
+                    <label>Export Format</label>
+                    <select asp-for="ExportFormat" class="form-control">
+                        <option value="json">JSON (redis-dump)</option>
+                        <option value="rdb">RDB (dump.rdb)</option>
+                        <option value="aof">AOF (appendonly.aof)</option>
+                    </select>
+                </div>
+            </div>
+
+            <hr />
+
+            <button class="btn btn-primary btn-custom" name="actionType" value="select">
+                🎯 Generate SELECT Database Script
+            </button>
+
+            <div class="form-check mt-3">
+              
+                <select name="ConfirmDangerous" class="form-control">
+                   
+
+                    @if (Model.ConfirmDangerous == false)
+                    {
+                        <option value="false" selected>false</option>
+                    }
+                    else
+                    {
+                        <option value="false">false</option>
+                    }
+
+                    @if (Model.ConfirmDangerous)
+                    {
+                        <option value="true" selected>True</option>
+                    }
+                    else
+                    {
+                        <option value="true">True</option>
+                    }
+
+                </select>
+                <label class="form-check-label text-warning">I confirm clearing database (Dangerous!)</label>
+            </div>
+
+            <button class="btn btn-danger btn-custom" name="actionType" value="clear">
+                🗑 FLUSHDB (Clear Database)
+            </button>
+
+            <button class="btn btn-success btn-custom" name="actionType" value="export">
+                📦 Export Database
+            </button>
+        </form>
+
+
+
+    @await Html.PartialAsync("_ScriptResult", Model)
+
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

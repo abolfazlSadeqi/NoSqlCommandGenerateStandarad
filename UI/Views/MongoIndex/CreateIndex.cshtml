@@ -1,0 +1,212 @@
+﻿@model Core.MongoCreateIndexViewModel
+@{
+    ViewData["Title"] = "Create MongoDB Index";
+}
+
+<div class="card-dark mt-4">
+
+    <h3 class="mb-3">Create MongoDB Index</h3>
+
+    <form asp-action="CreateIndex" method="post">
+        <div class="row g-3">
+
+            <div class="col-md-6">
+                <label asp-for="DatabaseName"></label>
+                <input asp-for="DatabaseName" class="form-control" placeholder="Example: AppDB" />
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="CollectionName"></label>
+                <input asp-for="CollectionName" class="form-control" placeholder="Example: users" />
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="IndexName"></label>
+                <input asp-for="IndexName" class="form-control" placeholder="Optional" />
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="IndexType"></label>
+                <select asp-for="IndexType" class="form-select">
+                    <option value="Single">Single</option>
+                    <option value="Compound">Compound</option>
+                    <option value="Text">Text</option>
+                    <option value="Hashed">Hashed</option>
+                    <option value="2dsphere">2dsphere</option>
+                </select>
+            </div>
+
+            <div class="col-12">
+                <div class="section-title">Fields</div>
+                <div id="fieldsContainer">
+                    <div class="row g-2 mb-2 index-field">
+                        <div class="col-md-6">
+                            <input name="Fields[0].FieldName" class="form-control" placeholder="Field Name" />
+                        </div>
+                        <div class="col-md-4">
+                            <select name="Fields[0].SortOrder" class="form-select">
+                                <option value="1">Asc</option>
+                                <option value="-1">Desc</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="remove-field">X</span>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-light" onclick="addField()">Add Field</button>
+            </div>
+
+            <div class="section-title">Options</div>
+
+            <div class="col-md-2 form-check">
+
+
+                <select name="Unique" class="form-control">
+                    
+
+                    @if (Model.Unique == false)
+                    {
+                        <option value="false" selected>false</option>
+                    }
+                    else
+                    {
+                        <option value="false">false</option>
+                    }
+                    @if (Model.Unique)
+                    {
+                        <option value="true" selected>True</option>
+                    }
+                    else
+                    {
+                        <option value="true">True</option>
+                    }
+                </select>
+                <label asp-for="Unique" class="form-check-label"></label>
+            </div>
+
+            <div class="col-md-2 form-check">
+
+
+                <select name="Sparse" class="form-control">
+                 
+
+                    @if (Model.Sparse == false)
+                    {
+                        <option value="false" selected>false</option>
+                    }
+                    else
+                    {
+                        <option value="false">false</option>
+                    }
+                    @if (Model.Sparse)
+                    {
+                        <option value="true" selected>True</option>
+                    }
+                    else
+                    {
+                        <option value="true">True</option>
+                    }
+                </select>
+                <label asp-for="Sparse" class="form-check-label"></label>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="ExpireAfterSeconds"></label>
+                <input asp-for="ExpireAfterSeconds" class="form-control" placeholder="TTL sec" />
+            </div>
+
+            <div class="col-md-2 form-check">
+                <select name="Background" class="form-control">
+                  
+
+                    @if (Model.Background == false)
+                    {
+                        <option value="false" selected>false</option>
+                    }
+                    else
+                    {
+                        <option value="false">false</option>
+                    }
+                    @if (Model.Background)
+                    {
+                        <option value="true" selected>True</option>
+                    }
+                    else
+                    {
+                        <option value="true">True</option>
+                    }
+                </select>
+                <label asp-for="Background" class="form-check-label"></label>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="PartialFilterExpression"></label>
+                <input asp-for="PartialFilterExpression" class="form-control" placeholder='{ "status": "active" }' />
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="CollationLocale"></label>
+                <input asp-for="CollationLocale" class="form-control" placeholder="en, fa..." />
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="CollationStrength"></label>
+                <select asp-for="CollationStrength" class="form-select">
+                    <option value="">Select</option>
+                    <option value="1">Primary</option>
+                    <option value="2">Secondary</option>
+                    <option value="3">Tertiary</option>
+                    <option value="4">Quaternary</option>
+                </select>
+            </div>
+
+            <div class="col-md-12">
+                <label asp-for="Comment"></label>
+                <input asp-for="Comment" class="form-control" placeholder="Optional comment" />
+            </div>
+
+            <div class="col-md-12">
+                <button class="btn btn-success w-100 mt-3">Generate Script</button>
+            </div>
+        </div>
+    </form>
+    @await Html.PartialAsync("_ScriptResult", Model)
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+
+
+        let fieldCount = 1;
+        function addField() {
+            const container = document.getElementById("fieldsContainer");
+            const row = document.createElement("div");
+            row.className = "row g-2 mb-2 index-field";
+            row.innerHTML = `
+                <div class="col-md-6">
+                    <input name="Fields[${fieldCount}].FieldName" class="form-control" placeholder="Field Name" />
+                </div>
+                <div class="col-md-4">
+                    <select name="Fields[${fieldCount}].SortOrder" class="form-select">
+                        <option value="1">Asc</option>
+                        <option value="-1">Desc</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <span class="remove-field">X</span>
+                </div>
+            `;
+            container.appendChild(row);
+            fieldCount++;
+        }
+
+        document.addEventListener("click", function(e){
+            if(e.target && e.target.classList.contains("remove-field")){
+                e.target.closest(".index-field").remove();
+            }
+        });
+    </script>
+
+}
+

@@ -1,0 +1,147 @@
+﻿@using Core
+@model AdvancedIndexViewModel
+
+<div class="card-dark mt-4">
+
+        <h3>Advanced Index Builder</h3>
+        <form method="post">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Database</label>
+                    <input asp-for="DatabaseName" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label>Collection</label>
+                    <input asp-for="CollectionName" class="form-control">
+                </div>
+            </div>
+
+            <hr />
+
+            <h5>Index Fields</h5>
+
+            <div id="fields">
+                @for (int i = 0; i < Model.Fields.Count; i++)
+                {
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <input asp-for="Fields[@i].FieldName" placeholder="Field name" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <select asp-for="Fields[@i].Order" class="form-control">
+                                <option value="1">Ascending</option>
+                                <option value="-1">Descending</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" onclick="removeField(this)" class="btn btn-danger btn-sm">X</button>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <button type="button" class="btn btn-secondary btn-sm" onclick="addField()">+ Add Field</button>
+
+            <hr />
+
+            <h5>Index Options</h5>
+            <div class="row">
+
+                <div class="col-md-3">
+                    <label>Unique</label>
+                    <input type="checkbox" asp-for="IsUnique" class="form-check-input ms-2">
+                </div>
+
+                <div class="col-md-3">
+                    <label>Sparse</label>
+                    <input type="checkbox" asp-for="IsSparse" class="form-check-input ms-2">
+                </div>
+
+                <div class="col-md-3">
+                    <label>Hidden</label>
+                    <input type="checkbox" asp-for="IsHidden" class="form-check-input ms-2">
+                </div>
+
+                <div class="col-md-3">
+                    <label>Wildcard ($**)</label>
+                    <input type="checkbox" asp-for="IsWildcard" class="form-check-input ms-2">
+                </div>
+
+                <div class="col-md-3 mt-3">
+                    <label>Text Index</label>
+                    <input type="checkbox" asp-for="IsText" class="form-check-input ms-2">
+                </div>
+
+                <div class="col-md-3 mt-3">
+                    <label>Hashed</label>
+                    <input type="checkbox" asp-for="IsHashed" class="form-check-input ms-2">
+                </div>
+
+                <div class="col-md-3 mt-3">
+                    <label>TTL</label>
+                    <input type="checkbox" asp-for="IsTTL" class="form-check-input ms-2">
+                </div>
+
+                <div class="col-md-3 mt-3">
+                    <label>TTL Seconds</label>
+                    <input asp-for="TTLSeconds" class="form-control" placeholder="e.g. 3600">
+                </div>
+
+                <div class="col-md-6 mt-3">
+                    <label>Partial Filter Expression (JSON)</label>
+                    <textarea asp-for="PartialFilter" class="form-control json-box" rows="3"
+                              placeholder='{ "age": { "$gt": 20 } }'></textarea>
+                </div>
+
+                <div class="col-md-6 mt-3">
+                    <label>Collation (JSON)</label>
+                    <textarea asp-for="Collation" class="form-control json-box" rows="3"
+                              placeholder='{ "locale": "en", "strength": 2 }'></textarea>
+                </div>
+
+                <div class="col-md-4 mt-3">
+                    <label>Custom Index Name</label>
+                    <input asp-for="CustomIndexName" class="form-control" placeholder="myIndex_1">
+                </div>
+
+            </div>
+
+        <button class="btn btn-success w-100 mt-3">Generate Script</button>
+        </form>
+  
+
+    @await Html.PartialAsync("_ScriptResult", Model)
+
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function addField() {
+            const html = `
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <input name="Fields[${Date.now()}].FieldName" placeholder="Field name" class="form-control"/>
+                </div>
+                <div class="col-md-4">
+                    <select name="Fields[${Date.now()}].Order" class="form-control">
+                        <option value="1">Ascending</option>
+                        <option value="-1">Descending</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" onclick="removeField(this)" class="btn btn-danger btn-sm">X</button>
+                </div>
+            </div>`;
+            document.getElementById("fields").insertAdjacentHTML("beforeend", html);
+        }
+
+        function removeField(btn) {
+            btn.parentElement.parentElement.remove();
+        }
+
+
+    </script>
+
+
+}

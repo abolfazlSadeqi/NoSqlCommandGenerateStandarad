@@ -1,0 +1,22 @@
+﻿@model Core.MongoListDatabasesViewModel
+@{
+    ViewData["Title"] = "List Mongo Databases";
+}
+
+
+<div class="card-dark mt-4">
+    <h3>List MongoDB Databases</h3>
+
+    <form asp-action="ListDatabases" method="post">
+        <button class="btn btn-success w-100 mt-3">Generate Script</button>
+    </form>
+
+    @await Html.PartialAsync("_ScriptResult", Model)
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}
+

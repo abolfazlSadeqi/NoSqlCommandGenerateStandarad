@@ -1,0 +1,114 @@
+﻿@using Core
+@model RedisServerInfoViewModel
+<div class="card-dark mt-4">
+        <h3>Redis Server & Monitoring</h3>
+        <form method="post" class="row g-3">
+
+            <div class="col-12 mt-2">
+                <div class="form-check form-check-inline">
+                    <select name="ShowInfo" class="form-control">
+                    
+                        @if (Model.ShowInfo == false)
+                        {
+                            <option value="false" selected>false</option>
+                        }
+                        else
+                        {
+                            <option value="false">false</option>
+                        }
+                        @if (Model.ShowInfo)
+                        {
+                            <option value="true" selected>True</option>
+                        }
+                        else
+                        {
+                            <option value="true">True</option>
+                        }
+
+                    </select>
+                    <label asp-for="ShowInfo" class="form-check-label">INFO</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <select name="ShowMemoryStats" class="form-control">
+                       
+                        @if (Model.ShowMemoryStats == false)
+                        {
+                            <option value="false" selected>false</option>
+                        }
+                        else
+                        {
+                            <option value="false">false</option>
+                        }
+                        @if (Model.ShowMemoryStats)
+                        {
+                            <option value="true" selected>True</option>
+                        }
+                        else
+                        {
+                            <option value="true">True</option>
+                        }
+
+                    </select>
+                    <label asp-for="ShowMemoryStats" class="form-check-label">MEMORY STATS</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <select name="ShowClientList" class="form-control">
+                      
+                        @if (Model.ShowClientList == false)
+                        {
+                            <option value="false" selected>false</option>
+                        }
+                        else
+                        {
+                            <option value="false">false</option>
+                        }
+                        @if (Model.ShowClientList)
+                        {
+                            <option value="true" selected>True</option>
+                        }
+                        else
+                        {
+                            <option value="true">True</option>
+                        }
+
+                    </select>
+                    <label asp-for="ShowClientList" class="form-check-label">CLIENT LIST</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <select name="ShowSlowLog" class="form-control">
+                       
+
+                        @if (Model.ShowSlowLog == false)
+                        {
+                            <option value="false" selected>false</option>
+                        }
+                        else
+                        {
+                            <option value="false">false</option>
+                        }
+                        @if (Model.ShowSlowLog)
+                        {
+                            <option value="true" selected>True</option>
+                        }
+                        else
+                        {
+                            <option value="true">True</option>
+                        }
+                    </select>
+                    <label asp-for="ShowSlowLog" class="form-check-label">SLOWLOG</label>
+                </div>
+            </div>
+
+            <div class="col-12 mt-3">
+                <button class="btn btn-info">Generate Commands</button>
+            </div>
+
+        </form>
+        @await Html.PartialAsync("_ScriptResult", Model)
+    
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

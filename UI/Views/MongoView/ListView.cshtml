@@ -1,0 +1,85 @@
+﻿@using Core
+@model MongoViewViewModel
+<div class="card-dark mt-4">
+        <h3>MongoDB View Management</h3>
+        <form method="post">
+
+            <!-- Basic Info -->
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label>Database</label>
+                    <input asp-for="DatabaseName" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label>Source Collection</label>
+                    <input asp-for="SourceCollection" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label>View Name</label>
+                    <input asp-for="ViewName" class="form-control" />
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <ul class="nav nav-pills mb-3">
+                <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" data-val="create" href="#createTab">Create View</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" data-val="replace" href="#replaceTab">Replace View</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" data-val="delete" href="#deleteTab">Delete View</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" data-val="list" href="#listTab">List Views</a></li>
+            </ul>
+
+            <input asp-for="OperationType" id="OperationType" type="hidden" />
+
+            <div class="tab-content">
+
+                <!-- Create -->
+                <div id="createTab" class="tab-pane fade show active">
+                    <h5>Pipeline</h5>
+                    <textarea asp-for="PipelineJson" class="form-control json-editor" rows="6"
+                              placeholder='[ { "$match": { "age": { "$gt": 20 } } } ]'></textarea>
+                </div>
+
+                <!-- Replace -->
+                <div id="replaceTab" class="tab-pane fade">
+                    <h5>New Pipeline</h5>
+                    <textarea asp-for="PipelineJson" class="form-control json-editor" rows="6"
+                              placeholder='[ { "$project": { "name": 1, "age": 1 } } ]'></textarea>
+                </div>
+
+                <!-- Delete -->
+                <div id="deleteTab" class="tab-pane fade">
+                    <div class="alert alert-danger">
+                        Are you sure you want to delete this view?
+                    </div>
+                </div>
+
+                <!-- List -->
+                <div id="listTab" class="tab-pane fade">
+                    <p>Click button to list all views</p>
+                </div>
+
+            </div>
+
+            <button class="btn btn-primary w-100 mt-3">Run</button>
+        </form>
+
+
+    <!-- Script Output -->
+    @await Html.PartialAsync("_ScriptResult", Model)
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.querySelectorAll(".nav-link").forEach(link => {
+            link.addEventListener("click", function () {
+                document.getElementById("OperationType")
+                    .value = this.getAttribute("data-val");
+            });
+        });
+        document.getElementById("OperationType").value = "create";
+
+
+    </script>
+
+}

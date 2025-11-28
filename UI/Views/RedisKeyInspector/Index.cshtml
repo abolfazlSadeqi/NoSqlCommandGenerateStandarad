@@ -1,0 +1,132 @@
+﻿@using Core
+@model RedisKeyInspectorViewModel
+<div class="card-dark mt-4">
+        <h3>Key Inspector</h3>
+        <form method="post" class="row g-3">
+
+            <div class="col-md-2">
+                <label>Database</label>
+                <input asp-for="DatabaseNumber" class="form-control bg-secondary text-light" />
+            </div>
+
+            <div class="col-md-6">
+                <label>Key</label>
+                <input asp-for="Key" class="form-control bg-secondary text-light" />
+            </div>
+
+            <div class="col-md-12 mt-2">
+                <div class="form-check form-check-inline">
+
+
+                    <select name="ShowType" class="form-control">
+                      
+                        @if (Model.ShowType == false)
+                        {
+                            <option value="false" selected>false</option>
+                        }
+                        else
+                        {
+                            <option value="false">false</option>
+                        }
+                        @if (Model.ShowType)
+                        {
+                            <option value="true" selected>True</option>
+                        }
+                        else
+                        {
+                            <option value="true">True</option>
+                        }
+
+                    </select>
+                    <label asp-for="ShowType" class="form-check-label">Type</label>
+                </div>
+                <div class="form-check form-check-inline">
+
+
+                    <select name="ShowTTL" class="form-control">
+                     
+
+                        @if (Model.ShowTTL == false)
+                        {
+                            <option value="false" selected>false</option>
+                        }
+                        else
+                        {
+                            <option value="false">false</option>
+                        }
+                        @if (Model.ShowTTL)
+                        {
+                            <option value="true" selected>True</option>
+                        }
+                        else
+                        {
+                            <option value="true">True</option>
+                        }
+                    </select>
+                    <label asp-for="ShowTTL" class="form-check-label">TTL</label>
+                </div>
+                <div class="form-check form-check-inline">
+
+
+                    <select name="ShowLength" class="form-control">
+                       
+                        @if (Model.ShowLength == false)
+                        {
+                            <option value="false" selected>false</option>
+                        }
+                        else
+                        {
+                            <option value="false">false</option>
+                        }
+                        @if (Model.ShowLength)
+                        {
+                            <option value="true" selected>True</option>
+                        }
+                        else
+                        {
+                            <option value="true">True</option>
+                        }
+
+                    </select>
+                    <label asp-for="ShowLength" class="form-check-label">Length</label>
+                </div>
+                <div class="form-check form-check-inline">
+
+                    <select name="ShowMemoryUsage" class="form-control">
+                     
+
+                        @if (Model.ShowMemoryUsage == false)
+                        {
+                            <option value="false" selected>false</option>
+                        }
+                        else
+                        {
+                            <option value="false">false</option>
+                        }
+                        @if (Model.ShowMemoryUsage)
+                        {
+                            <option value="true" selected>True</option>
+                        }
+                        else
+                        {
+                            <option value="true">True</option>
+                        }
+                    </select>
+                    <label asp-for="ShowMemoryUsage" class="form-check-label">Memory Usage</label>
+                </div>
+            </div>
+
+            <div class="col-12 mt-3">
+            <button class="btn btn-success w-100 mt-3">Generate Script</button>
+            </div>
+
+        </form>
+
+        @await Html.PartialAsync("_ScriptResult", Model)
+    
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

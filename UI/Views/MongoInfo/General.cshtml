@@ -1,0 +1,61 @@
+﻿@model Core.MongoGeneralCommandViewModel
+@{
+    ViewData["Title"] = "MongoDB General Commands";
+}
+
+<div class="card-dark mt-4">
+    <h3 class="mb-3">MongoDB General / Admin Commands</h3>
+
+    <form asp-action="General" method="post">
+        <div class="row g-3">
+
+            <div class="col-md-4">
+                <label asp-for="CommandType"></label>
+                <select asp-for="CommandType" class="form-select">
+                    <option value="Ping">Ping Server</option>
+                    <option value="ServerStatus">Server Status</option>
+                    <option value="BuildInfo">Build Info</option>
+                    <option value="CurrentOp">Current Operations</option>
+                    <option value="ReplicaSetStatus">Replica Set Status</option>
+                    <option value="ShardingStatus">Sharding Status</option>
+                    <option value="ListDatabases">List Databases</option>
+                    <option value="UseDatabase">Use Database</option>
+                    <option value="DropDatabase">Drop Database</option>
+                    <option value="ListUsers">List Users</option>
+                    <option value="ListRoles">List Roles</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="DatabaseName"></label>
+                <input asp-for="DatabaseName" class="form-control" placeholder="Optional" />
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="CollectionName"></label>
+                <input asp-for="CollectionName" class="form-control" placeholder="Optional" />
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" placeholder="Optional" />
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="RoleName"></label>
+                <input asp-for="RoleName" class="form-control" placeholder="Optional" />
+            </div>
+
+            <div class="col-12">
+                <button class="btn btn-success w-100 mt-3">Generate Script</button>
+            </div>
+        </div>
+    </form>
+
+    @await Html.PartialAsync("_ScriptResult", Model)
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

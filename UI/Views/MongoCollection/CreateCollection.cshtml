@@ -1,0 +1,249 @@
+﻿@model Core.MongoCreateCollectionViewModel
+@{
+    ViewData["Title"] = "Create MongoDB Collection";
+}
+
+<div class="card-dark mt-4">
+    <h3 class="mb-3">Create MongoDB Collection</h3>
+
+    <form asp-action="CreateCollection" method="post">
+        <div class="row g-3">
+
+            <div class="col-md-6">
+                <label asp-for="DatabaseName"></label>
+                <input asp-for="DatabaseName" class="form-control" placeholder="Example: AppDB" />
+                <span asp-validation-for="DatabaseName" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="CollectionName"></label>
+                <input asp-for="CollectionName" class="form-control" placeholder="users, logs, events..." />
+                <span asp-validation-for="CollectionName" class="text-danger"></span>
+            </div>
+
+            <div class="section-title">Capped Collection</div>
+
+            <div class="col-md-3 form-check">
+                <select name="IsCapped" class="form-control">
+                    @if ( Model.IsCapped)
+                    {
+                        <option value="true" selected>True</option>
+                    }
+                    else
+                    {
+                        <option value="true">True</option>
+                    }
+
+                    @if (Model.IsCapped == false)
+                    {
+                        <option value="false" selected>false</option>
+                    }
+                    else
+                    {
+                        <option value="false">false</option>
+                    }
+
+                </select>
+
+                <label asp-for="IsCapped" class="form-check-label"></label>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="CappedSize"></label>
+                <input asp-for="CappedSize" class="form-control" placeholder="e.g. 5242880" />
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="CappedMax"></label>
+                <input asp-for="CappedMax" class="form-control" placeholder="Document count" />
+            </div>
+
+            <div class="section-title">Collation</div>
+
+            <div class="col-md-3 form-check">
+                <select name="UseCollation" class="form-control">
+                    @if (Model.UseCollation)
+                    {
+                        <option value="true" selected>True</option>
+                    }
+                    else
+                    {
+                        <option value="true">True</option>
+                    }
+
+                    @if (Model.UseCollation == false)
+                    {
+                        <option value="false" selected>false</option>
+                    }
+                    else
+                    {
+                        <option value="false">false</option>
+                    }
+
+                </select>
+                <label asp-for="UseCollation" class="form-check-label"></label>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="CollationLocale"></label>
+                <input asp-for="CollationLocale" class="form-control" placeholder="fa, en, tr..." />
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="CollationStrength"></label>
+                <select asp-for="CollationStrength" class="form-select">
+                    <option value="">Select…</option>
+                    <option value="1">Primary</option>
+                    <option value="2">Secondary</option>
+                    <option value="3">Tertiary</option>
+                    <option value="4">Quaternary</option>
+                </select>
+            </div>
+
+            <div class="section-title">Validation (JSON Schema)</div>
+
+            <div class="col-md-3 form-check">
+
+
+                <select name="UseValidation" class="form-control">
+                    @if (Model.UseValidation)
+                    {
+                        <option value="true" selected>True</option>
+                    }
+                    else
+                    {
+                        <option value="true">True</option>
+                    }
+
+                    @if (Model.UseValidation == false)
+                    {
+                        <option value="false" selected>false</option>
+                    }
+                    else
+                    {
+                        <option value="false">false</option>
+                    }
+
+                </select>
+           
+                <label asp-for="UseValidation" class="form-check-label"></label>
+            </div>
+
+            <div class="col-md-9">
+                <label asp-for="ValidationRuleJson"></label>
+                <textarea asp-for="ValidationRuleJson" class="form-control" rows="4"
+                          placeholder='{"$jsonSchema":{...}}'></textarea>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="ValidationLevel"></label>
+                <select asp-for="ValidationLevel" class="form-select">
+                    <option value="">None</option>
+                    <option value="strict">Strict</option>
+                    <option value="moderate">Moderate</option>
+                </select>
+            </div>
+
+            <div class="section-title">Comment</div>
+
+            <div class="col-md-12">
+                <input asp-for="Comment" class="form-control" placeholder="Optional comment…" />
+            </div>
+
+            <div class="section-title">Write Concern</div>
+
+            <div class="col-md-3 form-check">
+
+
+                <select name="UseWriteConcern" class="form-control">
+                    @if (Model.UseWriteConcern)
+                    {
+                        <option value="true" selected>True</option>
+                    }
+                    else
+                    {
+                        <option value="true">True</option>
+                    }
+
+                    @if (Model.UseWriteConcern == false)
+                    {
+                        <option value="false" selected>false</option>
+                    }
+                    else
+                    {
+                        <option value="false">false</option>
+                    }
+
+                </select>
+
+                
+                <label asp-for="UseWriteConcern" class="form-check-label"></label>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="WriteConcernW"></label>
+                <input asp-for="WriteConcernW" class="form-control" />
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="WriteConcernJ"></label>
+                <select asp-for="WriteConcernJ" class="form-select">
+                    <option value="">Select…</option>
+                    <option value="true">true</option>
+                    <option value="false">false</option>
+                </select>
+            </div>
+
+            <div class="section-title">Time Series</div>
+
+            <div class="col-md-3 form-check">
+
+
+                <select name="UseTimeSeries" class="form-control">
+                    @if (Model.UseTimeSeries)
+                    {
+                        <option value="true" selected>True</option>
+                    }
+                    else
+                    {
+                        <option value="true">True</option>
+                    }
+
+                    @if (Model.UseTimeSeries == false)
+                    {
+                        <option value="false" selected>false</option>
+                    }
+                    else
+                    {
+                        <option value="false">false</option>
+                    }
+
+                </select>
+                <label asp-for="UseTimeSeries" class="form-check-label"></label>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="TimeSeriesTimeField"></label>
+                <input asp-for="TimeSeriesTimeField" class="form-control" placeholder="timestamp" />
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="TimeSeriesMetaField"></label>
+                <input asp-for="TimeSeriesMetaField" class="form-control" placeholder="metadata" />
+            </div>
+
+            <div class="col-md-12">
+                <button class="btn btn-success w-100 mt-3">Generate Script</button>
+            </div>
+
+        </div>
+    </form>
+
+    @await Html.PartialAsync("_ScriptResult", Model)
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+   
+
+    }

@@ -1,0 +1,38 @@
+﻿@model Core.MongoDropCollectionViewModel
+@{
+    ViewData["Title"] = "Drop MongoDB Collection";
+}
+
+<div class="card-dark mt-4">
+
+    <h3 class="mb-3">Drop MongoDB Collection</h3>
+
+    <form asp-action="DropCollection" method="post">
+        <div class="row g-3">
+
+            <div class="col-md-6">
+                <label asp-for="DatabaseName"></label>
+                <input asp-for="DatabaseName" class="form-control" placeholder="Example: AppDB" />
+                <span asp-validation-for="DatabaseName" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="CollectionName"></label>
+                <input asp-for="CollectionName" class="form-control" placeholder="Example: users" />
+                <span asp-validation-for="CollectionName" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-12">
+                <button class="btn btn-success w-100 mt-3">Generate Script</button>
+            </div>
+
+        </div>
+    </form>
+
+    @await Html.PartialAsync("_ScriptResult", Model)
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

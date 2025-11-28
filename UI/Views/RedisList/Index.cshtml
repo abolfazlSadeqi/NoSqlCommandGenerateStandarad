@@ -1,0 +1,45 @@
+﻿@using Core
+@model RedisListOperationViewModel
+<div class="card-dark mt-4">
+        <h3>Redis Lists Operations</h3>
+        <form method="post" class="row g-3">
+            <div class="col-md-4">
+                <label>Key</label>
+                <input asp-for="Key" class="form-control bg-secondary text-light" />
+            </div>
+            <div class="col-md-4">
+                <label>Value</label>
+                <input asp-for="Value" class="form-control bg-secondary text-light" />
+            </div>
+            <div class="col-md-2">
+                <label>Index (for LSET)</label>
+                <input asp-for="Index" class="form-control bg-secondary text-light" type="number" />
+            </div>
+            <div class="col-md-2">
+                <label>Start (for LRANGE)</label>
+                <input asp-for="Start" class="form-control bg-secondary text-light" type="number" />
+            </div>
+            <div class="col-md-2">
+                <label>Stop (for LRANGE)</label>
+                <input asp-for="Stop" class="form-control bg-secondary text-light" type="number" />
+            </div>
+
+            <div class="col-12 mt-3">
+                <div class="btn-group flex-wrap" role="group">
+                    <button name="actionType" value="LPUSH" class="btn btn-info">LPUSH</button>
+                    <button name="actionType" value="RPUSH" class="btn btn-secondary">RPUSH</button>
+                    <button name="actionType" value="LPOP" class="btn btn-danger">LPOP</button>
+                    <button name="actionType" value="LRANGE" class="btn btn-warning">LRANGE</button>
+                    <button name="actionType" value="LSET" class="btn btn-primary">LSET</button>
+                </div>
+            </div>
+        </form>
+
+        @await Html.PartialAsync("_ScriptResult", Model)
+    
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

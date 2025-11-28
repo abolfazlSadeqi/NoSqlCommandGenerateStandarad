@@ -1,0 +1,32 @@
+﻿@using Core
+@model RedisACLUserViewModel
+
+<div class="card-dark mt-4">
+        <h3>ACL SETUSER</h3>
+        <form method="post" class="row g-3">
+            <div class="col-md-3">
+                <label>User Name</label>
+                <input asp-for="UserName" class="form-control bg-secondary text-light" />
+            </div>
+            <div class="col-md-3">
+                <label>Password</label>
+                <input asp-for="Password" type="password" class="form-control bg-secondary text-light" />
+            </div>
+            <div class="col-md-6">
+                <label>Permissions (comma separated, e.g., +all, ~*)</label>
+                <input asp-for="Permissions" class="form-control bg-secondary text-light"
+                       placeholder="Example: +all ~*" />
+            </div>
+            <div class="col-12 mt-2">
+                <button class="btn btn-info">Generate Command</button>
+            </div>
+        </form>
+
+        @await Html.PartialAsync("_ScriptResult", Model)
+    
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

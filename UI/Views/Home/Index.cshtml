@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Core.Resources.Resource.WelcomeMessage;
+}
+
+<div class="info-card">
+    <div class="info-icon"><i class="bi bi-info-circle-fill"></i></div>
+    <div class="info-text">
+        @Core.Resources.Resource.IntroText
+    </div>
+</div>
+
+<div class="info-card">
+    <div class="info-icon"><i class="bi bi-check-circle-fill"></i></div>
+    <div class="info-text">
+        @Core.Resources.Resource.KeyFeatures
+    </div>
+</div>
+
+<ul class="info-list">
+    <li>@Core.Resources.Resource.WhyUseThisTool</li>
+</ul>

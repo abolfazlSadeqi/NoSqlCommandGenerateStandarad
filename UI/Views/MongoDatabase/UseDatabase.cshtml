@@ -1,0 +1,26 @@
+﻿@model Core.MongoUseDatabaseViewModel
+@{
+    ViewData["Title"] = "Use MongoDB Database";
+}
+
+<div class="card-dark mt-4">
+    <h3>Select Default Database</h3>
+
+    <form asp-action="UseDatabase" method="post">
+        <div class="mb-3">
+            <label asp-for="DatabaseName" class="form-label"></label>
+            <input asp-for="DatabaseName" class="form-control" placeholder="Example: MyAppDB" />
+            <span asp-validation-for="DatabaseName" class="text-danger"></span>
+        </div>
+
+        <button class="btn btn-success w-100 mt-3">Generate Script</button>
+    </form>
+
+    @await Html.PartialAsync("_ScriptResult", Model)
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

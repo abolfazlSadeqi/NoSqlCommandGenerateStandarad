@@ -1,0 +1,26 @@
+﻿@using Core
+@model RedisResetPassViewModel
+<div class="card-dark mt-4">
+        <h3>Reset User Password</h3>
+        <form method="post" class="row g-3">
+            <div class="col-md-3">
+                <label>User Name</label>
+                <input asp-for="UserName" class="form-control bg-secondary text-light" />
+            </div>
+            <div class="col-md-3">
+                <label>New Password</label>
+                <input asp-for="NewPassword" type="password" class="form-control bg-secondary text-light" />
+            </div>
+            <div class="col-12 mt-2">
+                <button class="btn btn-info">Generate Command</button>
+            </div>
+        </form>
+
+        @await Html.PartialAsync("_ScriptResult", Model)
+    
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

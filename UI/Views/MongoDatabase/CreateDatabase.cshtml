@@ -1,0 +1,307 @@
+﻿@using Core
+@model MongoDatabaseCreateViewModel
+@{
+    ViewData["Title"] = "Create MongoDB Database";
+}
+
+
+<div class="card-dark mt-4">
+    <h3 class="mb-3">Create MongoDB Database</h3>
+
+    <!-- Tabs -->
+    <div class="d-flex gap-2 flex-wrap">
+        <button class="tab-btn active" onclick="openTab('general')">General</button>
+        <button class="tab-btn" onclick="openTab('collation')">Collation</button>
+        <button class="tab-btn" onclick="openTab('security')">User & Security</button>
+        <button class="tab-btn" onclick="openTab('write')">Write Concern</button>
+        <button class="tab-btn" onclick="openTab('read')">Read Concern</button>
+        <button class="tab-btn" onclick="openTab('collection')">Default Collection</button>
+    </div>
+
+    <form method="post" class="mt-3">
+
+        <!-- General -->
+        <div id="general" class="tab-section active">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label>Database Name</label>
+                    <input asp-for="DatabaseName" class="form-control" />
+                </div>
+
+                <div class="col-md-4 d-flex align-items-center">
+                    <select name="EnableSharding" class="form-control">
+                       
+
+                        @if (Model.EnableSharding is not null && Model.EnableSharding == false)
+                        {
+                            <option value="false" selected>false</option>
+                        }
+                        else
+                        {
+                            <option value="false">false</option>
+                        }
+
+
+                        @if (Model.EnableSharding is not null && Model.EnableSharding.Value)
+                        {
+                            <option value="true" selected>True</option>
+                        }
+                        else
+                        {
+                            <option value="true">True</option>
+                        }
+                    </select>
+              
+                    <label class="form-check-label">Enable Sharding</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Collation -->
+        <div id="collation" class="tab-section">
+            <div class="form-check mb-2">
+                <select name="UseCollation" class="form-control">
+                  
+
+
+                    @if (Model.UseCollation is not null && Model.UseCollation.Value == false)
+                    {
+                        <option value="false" selected>false</option>
+                    }
+                    else
+                    {
+                        <option value="false">false</option>
+                    }
+                    @if (Model.UseCollation is not null && Model.UseCollation.Value)
+                    {
+                        <option value="true" selected>True</option>
+                    }
+                    else
+                    {
+                        <option value="true">True</option>
+                    }
+                </select>
+              
+                <label class="form-check-label">Enable Collation</label>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label>Locale</label>
+                    <input asp-for="CollationLocale" class="form-control" placeholder="fa / en / ar" />
+                </div>
+                <div class="col-md-3">
+                    <label>Strength</label>
+                    <input asp-for="CollationStrength" type="number" class="form-control" placeholder="1-5" />
+                </div>
+                <div class="col-md-3">
+                    <label>Numeric Ordering</label>
+                    <select asp-for="NumericOrdering" class="form-select">
+                        <option value="">None</option>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security -->
+        <div id="security" class="tab-section">
+            <div class="form-check mb-2">
+                <select name="CreateUser" class="form-control">
+                 
+
+                   
+
+                    @if (Model.CreateUser is not null && Model.CreateUser.Value == false)
+                    {
+                        <option value="false" selected>false</option>
+                    }
+                    else
+                    {
+                        <option value="false">false</option>
+                    }
+                    @if (Model.CreateUser is not null && Model.CreateUser.Value)
+                    {
+                        <option value="true" selected>True</option>
+                    }
+                    else
+                    {
+                        <option value="true">True</option>
+                    }
+                </select>
+
+
+                <label class="form-check-label">Create Database User</label>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label>Username</label>
+                    <input asp-for="Username" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label>Password</label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label>Role</label>
+                    <select asp-for="UserRole" class="form-select">
+                        <option>read</option>
+                        <option>readWrite</option>
+                        <option>dbAdmin</option>
+                        <option>dbOwner</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Write Concern -->
+        <div id="write" class="tab-section">
+            <div class="form-check mb-2">
+                <select name="UseWriteConcern" class="form-control">
+                  
+
+
+                    @if (Model.UseWriteConcern is not null && Model.UseWriteConcern.Value == false)
+                    {
+                        <option value="false" selected>false</option>
+                    }
+                    else
+                    {
+                        <option value="false">false</option>
+                    }
+                    @if (Model.UseWriteConcern is not null && Model.UseWriteConcern.Value)
+                    {
+                        <option value="true" selected>True</option>
+                    }
+                    else
+                    {
+                        <option value="true">True</option>
+                    }
+
+                </select>
+
+
+
+                <label class="form-check-label">Enable Write Concern</label>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label>w</label>
+                    <input asp-for="W" class="form-control" placeholder="1 / majority" />
+                </div>
+                <div class="col-md-3">
+                    <label>Journal (j)</label>
+                    <select asp-for="J" class="form-select">
+                        <option value="">None</option>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Timeout (ms)</label>
+                    <input asp-for="WTimeout" type="number" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Read Concern -->
+        <div id="read" class="tab-section">
+            <div class="form-check mb-2">
+                <select name="UseReadConcern" class="form-control">
+                  
+                  
+
+
+                    @if (Model.UseReadConcern is not null && Model.UseReadConcern.Value == false)
+                    {
+                        <option value="false" selected>false</option>
+                    }
+                    else
+                    {
+                        <option value="false">false</option>
+                    }
+  @if (Model.UseReadConcern is not null && Model.UseReadConcern.Value)
+                    {
+                        <option value="true" selected>True</option>
+                    }
+                    else
+                    {
+                        <option value="true">True</option>
+                    }
+
+                </select>
+
+                <label class="form-check-label">Enable Read Concern</label>
+            </div>
+
+            <div class="col-md-4">
+                <label>Level</label>
+                <select asp-for="ReadConcern" class="form-select">
+                    <option>local</option>
+                    <option>available</option>
+                    <option>majority</option>
+                    <option>linearizable</option>
+                    <option>snapshot</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Default Collection -->
+        <div id="collection" class="tab-section">
+            <div class="form-check mb-2">
+                <select name="CreateDefaultCollection" class="form-control">
+                 
+                    @if (Model.CreateDefaultCollection is not null && Model.CreateDefaultCollection.Value == false)
+                    {
+                        <option value="false" selected>false</option>
+                    }
+                    else
+                    {
+                        <option value="false">false</option>
+                    }
+
+
+                    @if (Model.CreateDefaultCollection is not null && Model.CreateDefaultCollection.Value)
+                    {
+                        <option value="true" selected>True</option>
+                    }
+                    else
+                    {
+                        <option value="true">True</option>
+                    }
+
+                </select>
+
+                <label class="form-check-label">Create initial Collection</label>
+            </div>
+
+            <div class="col-md-4">
+                <label>Collection Name</label>
+                <input asp-for="CollectionName" class="form-control" />
+            </div>
+        </div>
+
+        <button class="btn btn-success w-100 mt-3">Generate Script</button>
+    </form>
+
+    @await Html.PartialAsync("_ScriptResult", Model)
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function openTab(tab) {
+            document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+            document.querySelectorAll(".tab-section").forEach(sec => sec.classList.remove("active"));
+            document.getElementById(tab).classList.add("active");
+
+            event.target.classList.add("active");
+        }
+
+    </script>
+
+
+}

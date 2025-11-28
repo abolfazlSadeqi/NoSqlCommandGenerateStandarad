@@ -1,0 +1,395 @@
+﻿@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    var lang = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isRtl = lang == "fa-IR";
+}
+
+<!DOCTYPE html>
+<html lang="@lang" dir="@(isRtl ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - NoSQL Script Generator</title>
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="NoSQL Script Generator for creating and managing database scripts with ease." />
+    <meta name="keywords" content="NoSQL, script generator, database, tables, columns" />
+    <meta name="author" content="Heeman Sadeghi" />
+
+    <!-- Open Graph Tags for Social Media (Optional) -->
+    <meta property="og:title" content="NoSQL Script Generator" />
+    <meta property="og:description" content="NoSQL Script Generator for creating and managing database scripts with ease" />
+    <meta property="og:type" content="website" />
+    
+    <!-- Twitter Card Tags (Optional) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NoSQL Script Generator" />
+    <meta name="twitter:description" content="NoSQL Script Generator for creating and managing database scripts with ease" />
+  
+
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.rtl.css" rel="stylesheet" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <style>
+
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <button class="btn btn-outline-light d-lg-none" id="menuToggle">
+            <i class="bi bi-list" style="font-size: 26px"></i>
+        </button>
+
+        <div class="container-fluid">
+            <span class="navbar-brand fw-bold">
+                <i class="bi bi-database-gear"></i>
+                SQL Script Generator
+            </span>
+
+            <!-- Language -->
+            <form asp-controller="Home" asp-action="SetLanguage" method="post" class="ms-auto">
+                <select name="culture" onchange="this.form.submit()" class="form-select form-select-sm">
+                    <option value="fa-IR" selected="@(isRtl ? "selected" : null)">فارسی</option>
+                    <option value="en-US" selected="@(isRtl ? null : "selected")">English</option>
+                </select>
+            </form>
+        </div>
+    </nav>
+    
+
+    <!-- Sidebar (Accordion style) -->
+    <nav id="sidebarMenu" class="sidebar bg-dark text-light p-3" aria-label="Main navigation">
+
+        <div class="d-flex align-items-center mb-3">
+            <i class="bi bi-database-gear fs-4 me-2"></i>
+            <span class="fs-5 fw-bold">@Localizer["AppName"]</span>
+        </div>
+
+        <div class="accordion accordion-flush" id="mainAccordion">
+
+            <!-- MongoDB Group -->
+            <div class="accordion-item bg-transparent border-0">
+                <h2 class="accordion-header" id="headingMongo">
+                    <button class="accordion-button collapsed bg-transparent text-light" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseMongo" aria-expanded="false"
+                            aria-controls="collapseMongo">
+                        <i class="bi bi-stack"></i>&nbsp; @Localizer["MongoDB"]
+                    </button>
+                </h2>
+                <div id="collapseMongo" class="accordion-collapse collapse" aria-labelledby="headingMongo"
+                     data-bs-parent="#mainAccordion">
+                    <div class="accordion-body p-0">
+                        <ul class="nav flex-column ms-3">
+                            <!-- Database -->
+                            <li class="nav-item">
+                                <a class="nav-link collapsed text-light" data-bs-toggle="collapse"
+                                   href="#mongoDatabase" role="button" aria-expanded="false">
+                                    <i class="bi bi-hdd-stack"></i>&nbsp; @Localizer["Database Management"]
+                                </a>
+                                <div class="collapse" id="mongoDatabase">
+                                    <a asp-controller="MongoDatabase" asp-action="CreateDatabase" class="nav-link ps-4">@Localizer["Create Database"]</a>
+                                    <a asp-controller="MongoDatabase" asp-action="DropDatabase" class="nav-link ps-4">@Localizer["Drop Database"]</a>
+                                    <a asp-controller="MongoDatabase" asp-action="ListDatabases" class="nav-link ps-4">@Localizer["List Databases"]</a>
+                                    <a asp-controller="MongoDatabase" asp-action="UseDatabase" class="nav-link ps-4">@Localizer["Use Database"]</a>
+                                </div>
+                            </li>
+
+                            <!-- Collection -->
+                            <li class="nav-item">
+                                <a class="nav-link collapsed text-light" data-bs-toggle="collapse" href="#mongoCollection" role="button" aria-expanded="false">
+                                    <i class="bi bi-folder2-open"></i>&nbsp; @Localizer["Collection Management"]
+                                </a>
+                                <div class="collapse" id="mongoCollection">
+                                    <a asp-controller="MongoCollection" asp-action="CreateCollection" class="nav-link ps-4">@Localizer["Create Collection"]</a>
+                                    <a asp-controller="MongoCollection" asp-action="DropCollection" class="nav-link ps-4">@Localizer["Drop Collection"]</a>
+                                    <a asp-controller="MongoCollection" asp-action="ListCollections" class="nav-link ps-4">@Localizer["List Collections"]</a>
+                                    <a asp-controller="MongoCollection" asp-action="RenameCollection" class="nav-link ps-4">@Localizer["Rename Collection"]</a>
+                                </div>
+                            </li>
+
+                            <!-- Index -->
+                            <li class="nav-item">
+                                <a class="nav-link collapsed text-light" data-bs-toggle="collapse" href="#mongoIndex" role="button" aria-expanded="false">
+                                    <i class="bi bi-bookmarks"></i>&nbsp; @Localizer["Index Management"]
+                                </a>
+                                <div class="collapse" id="mongoIndex">
+                                    <a asp-controller="MongoIndex" asp-action="CreateIndex" class="nav-link ps-4">@Localizer["Create Index"]</a>
+                                    <a asp-controller="MongoIndex" asp-action="DropIndex" class="nav-link ps-4">@Localizer["Drop Index"]</a>
+                                    <a asp-controller="MongoIndex" asp-action="GenerateIndexes" class="nav-link ps-4">@Localizer["List Indexes"]</a>
+                                    
+                                </div>
+                            </li>
+
+                            <!-- Documents -->
+                            <li class="nav-item">
+                                <a class="nav-link collapsed text-light" data-bs-toggle="collapse" href="#mongoDocuments" role="button" aria-expanded="false">
+                                    <i class="bi bi-file-earmark-text"></i>&nbsp; @Localizer["Document Operations"]
+                                </a>
+                                <div class="collapse" id="mongoDocuments">
+                                    <a asp-controller="MongoDocument" asp-action="Insert" class="nav-link ps-4">@Localizer["Insert Document"]</a>
+                                    <a asp-controller="MongoDocument" asp-action="Update" class="nav-link ps-4">@Localizer["Update Document"]</a>
+                                    <a asp-controller="MongoDocument" asp-action="Delete" class="nav-link ps-4">@Localizer["Delete Document"]</a>
+                                </div>
+                            </li>
+
+                            <!-- Query _ Bulk -->
+                            <li class="nav-item">
+                                <a class="nav-link collapsed text-light" data-bs-toggle="collapse" href="#mongoQueryBulk" role="button" aria-expanded="false">
+                                    <i class="bi bi-search"></i>&nbsp; @Localizer["Query _ Bulk"]
+                                </a>
+                                <div class="collapse" id="mongoQueryBulk">
+                                    <a asp-controller="MongoQuery" asp-action="Query" class="nav-link ps-4">@Localizer["Query Builder"]</a>
+                                    <a asp-controller="MongoBulk" asp-action="GenerateBulkScript" class="nav-link ps-4">@Localizer["Bulk Operations"]</a>
+                                </div>
+                            </li>
+
+                            <!-- Views -->
+                            <li class="nav-item">
+                                <a class="nav-link collapsed text-light" data-bs-toggle="collapse" href="#mongoViews" role="button" aria-expanded="false">
+                                    <i class="bi bi-eye"></i>&nbsp; @Localizer["Views"]
+                                </a>
+                                <div class="collapse" id="mongoViews">
+                                    <a asp-controller="MongoView" asp-action="ListView" class="nav-link ps-4">@Localizer["Manage Views"]</a>
+                                </div>
+                            </li>
+
+                            <!-- Info _ Security -->
+                            <li class="nav-item">
+                                <a class="nav-link collapsed text-light" data-bs-toggle="collapse" href="#mongoInfoSec" role="button" aria-expanded="false">
+                                    <i class="bi bi-shield-lock"></i>&nbsp; @Localizer["Info _ Security"]
+                                </a>
+                                <div class="collapse" id="mongoInfoSec">
+                                    <a asp-controller="MongoInfo" asp-action="General" class="nav-link ps-4">@Localizer["General Commands"]</a>
+                                    <a asp-controller="MongoSecurity" asp-action="Index" class="nav-link ps-4">@Localizer["Security / Users _ Roles"]</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Redis Group -->
+            <div class="accordion-item bg-transparent border-0">
+                <h2 class="accordion-header" id="headingRedis">
+                    <button class="accordion-button collapsed bg-transparent text-light" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseRedis" aria-expanded="false"
+                            aria-controls="collapseRedis">
+                        <i class="bi bi-lightning-fill"></i>&nbsp; @Localizer["Redis"]
+                    </button>
+                </h2>
+                <div id="collapseRedis" class="accordion-collapse collapse" aria-labelledby="headingRedis"
+                     data-bs-parent="#mainAccordion">
+                    <div class="accordion-body p-0">
+                        <ul class="nav flex-column ms-3">
+
+                            <!-- Database -->
+                            <li class="nav-item">
+                                <a class="nav-link collapsed text-light" data-bs-toggle="collapse" href="#redisDatabase" role="button" aria-expanded="false">
+                                    <i class="bi bi-hdd-rack"></i>&nbsp; @Localizer["Database"]
+                                </a>
+                                <div class="collapse" id="redisDatabase">
+                                    <a asp-controller="RedisDatabase" asp-action="Manage" class="nav-link ps-4">@Localizer["Manage Database"]</a>
+                                </div>
+                            </li>
+
+                            <!-- Clear -->
+                            <li class="nav-item">
+                                <a class="nav-link collapsed text-light" data-bs-toggle="collapse" href="#redisClear" role="button" aria-expanded="false">
+                                    <i class="bi bi-broom"></i>&nbsp; @Localizer["Clear / Flush"]
+                                </a>
+                                <div class="collapse" id="redisClear">
+                                    <a asp-controller="RedisClear" asp-action="ClearDatabase" class="nav-link ps-4">@Localizer["Clear Database"]</a>
+                                    <a asp-controller="RedisClear" asp-action="GenerateClearAllDatabaseScript" class="nav-link ps-4">@Localizer["Clear All Databases"]</a>
+                                    <a asp-controller="RedisClear" asp-action="ClearPattern" class="nav-link ps-4">@Localizer["Clear By Pattern"]</a>
+                                    <a asp-controller="RedisClear" asp-action="ClearExpired" class="nav-link ps-4">@Localizer["Clear Expired Keys"]</a>
+                                </div>
+                            </li>
+
+                            <!-- Key Operations -->
+                            <li class="nav-item">
+                                <a class="nav-link collapsed text-light" data-bs-toggle="collapse" href="#redisKeyOps" role="button" aria-expanded="false">
+                                    <i class="bi bi-key"></i>&nbsp; @Localizer["Key Operations"]
+                                </a>
+                                <div class="collapse" id="redisKeyOps">
+                                    <a asp-controller="RedisKey" asp-action="AddKey" class="nav-link ps-4">@Localizer["Add Key"]</a>
+                                    <a asp-controller="RedisKey" asp-action="UpdateKey" class="nav-link ps-4">@Localizer["Update Key"]</a>
+                                    <a asp-controller="RedisKey" asp-action="DeleteKey" class="nav-link ps-4">@Localizer["Delete Key"]</a>
+                                    <a asp-controller="RedisKey" asp-action="TTL" class="nav-link ps-4">@Localizer["Set TTL"]</a>
+                                    <a asp-controller="RedisKey" asp-action="RenameKey" class="nav-link ps-4">@Localizer["Rename Key"]</a>
+                                    <a asp-controller="RedisKey" asp-action="Persist" class="nav-link ps-4">@Localizer["Persist Key"]</a>
+                                    <a asp-controller="RedisKey" asp-action="Copy" class="nav-link ps-4">@Localizer["Copy Key"]</a>
+                                    <a asp-controller="RedisKey" asp-action="Move" class="nav-link ps-4">@Localizer["Move Key"]</a>
+                                    <a asp-controller="RedisKey" asp-action="RedisKeyOperation" class="nav-link ps-4">@Localizer["Generic Key Ops"]</a>
+                                </div>
+                            </li>
+
+                            <!-- Inspector -->
+                            <li class="nav-item">
+                                <a asp-controller="RedisKeyInspector" asp-action="Index" class="nav-link text-light">
+                                    <i class="bi bi-search"></i>&nbsp; @Localizer["Key Inspector"]
+                                </a>
+                            </li>
+
+                            <!-- Lists -->
+                            <li class="nav-item">
+                                <a class="nav-link collapsed text-light" data-bs-toggle="collapse" href="#redisLists" role="button" aria-expanded="false">
+                                    <i class="bi bi-list-ul"></i>&nbsp; @Localizer["Lists"]
+                                </a>
+                                <div class="collapse" id="redisLists">
+                                    <a asp-controller="RedisList" asp-action="Index" class="nav-link ps-4">@Localizer["List Operations"]</a>
+                                </div>
+                            </li>
+
+                            <!-- Sets / ZSets -->
+                            <li class="nav-item">
+                                <a asp-controller="RedisSet" asp-action="Index" class="nav-link text-light">
+                                    <i class="bi bi-collection"></i>&nbsp; @Localizer["Sets _ Sorted Sets"]
+                                </a>
+                            </li>
+
+                            <!-- Hash -->
+                            <li class="nav-item">
+                                <a asp-controller="RedisHash" asp-action="Index" class="nav-link text-light">
+                                    <i class="bi bi-hash"></i>&nbsp; @Localizer["Hash Operations"]
+                                </a>
+                            </li>
+
+                            <!-- Counters -->
+                            <li class="nav-item">
+                                <a asp-controller="RedisCounter" asp-action="Index" class="nav-link text-light">
+                                    <i class="bi bi-calculator"></i>&nbsp; @Localizer["Counters"]
+                                </a>
+                            </li>
+
+                            <!-- Search -->
+                            <li class="nav-item">
+                                <a asp-controller="RedisSearch" asp-action="Index" class="nav-link text-light">
+                                    <i class="bi bi-search-heart"></i>&nbsp; @Localizer["Search / Scan"]
+                                </a>
+                            </li>
+
+                            <!-- Server -->
+                            <li class="nav-item">
+                                <a asp-controller="RedisServer" asp-action="Index" class="nav-link text-light">
+                                    <i class="bi bi-graph-up"></i>&nbsp; @Localizer["Server Info"]
+                                </a>
+                            </li>
+
+                            <!-- Redis Security -->
+                          
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- end accordion -->
+    </nav>
+
+    <!-- small CSS tweak for RTL awareness (put in site.css or inline) -->
+  
+
+    <!-- Content -->
+    <div class="content">
+        
+        @Html.Partial("_Error.cshtml")
+        @RenderBody()
+    </div>
+
+    <footer style="background-color:#007bff;color:white;padding:30px 20px;text-align:center;font-family:Arial,sans-serif;border-top-left-radius:20px;border-top-right-radius:20px;">
+
+        <div style="font-size:14px;">
+            <a href="mailto:abolfazalsadeqi@gmail.com" style="color:white;text-decoration:none;margin:0 10px;">Contact: Heeman Sadeghi</a> |
+            <a href="https://github.com/abolfazlSadeqi/NoSqlCommandGenerateStandarad" target="_blank" style="color:white;text-decoration:none;margin:0 10px;">Source on GitHub</a> |
+            <a href="https://github.com/abolfazlSadeqi/NoSqlCommandGenerateStandarad" target="_blank" style="color:white;text-decoration:none;margin:0 10px;">Contribute</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            // تست باز شدن/بسته شدن منوها
+            $('[data-toggle="collapse"]').click(function () {
+                var target = $(this).data('target');
+                $(target).collapse('toggle');
+            });
+
+
+                    // Before form submission, add hidden inputs for unchecked checkboxes
+                document.querySelector("form").addEventListener("submit", function (event) {
+                    // Get all checkbox inputs
+                    document.querySelectorAll("input[type='checkbox']").forEach(function (chk) {
+                        // If the checkbox is unchecked, add a hidden input with value false
+                        if (!chk.checked) {
+                            var hidden = document.createElement("input");
+                            hidden.type = "hidden";
+                            hidden.name = chk.name;
+                            hidden.value = "false";
+                            document.querySelector("form").appendChild(hidden);
+                        }
+                    });
+                });
+
+        });
+
+        function copyScript() {
+            const txt = document.getElementById('scriptArea').innerText;
+
+            // کپی کردن متن به کلیپ‌بورد
+            navigator.clipboard.writeText(txt).then(function() {
+                // تغییر متن دکمه و نشان دادن پیام "کپی شد"
+                var copyButton = document.getElementById('copyButton');
+                copyButton.textContent = 'Copied!';
+                copyButton.classList.remove('btn-outline-secondary');
+                copyButton.classList.add('btn-success');
+
+                // برگرداندن دکمه به حالت اولیه بعد از 2 ثانیه
+                setTimeout(function() {
+                    copyButton.textContent = 'Copy';
+                    copyButton.classList.remove('btn-success');
+                    copyButton.classList.add('btn-outline-secondary');
+                }, 2000);
+            }, function() {
+                alert('Copy failed.');
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const toggleBtn = document.getElementById("menuToggle");
+            const sidebar = document.getElementById("sidebarMenu");
+
+            toggleBtn.addEventListener("click", function () {
+                sidebar.classList.toggle("open");
+            });
+
+            // اگر بیرون از منو کلیک شد، منو بسته شود
+            document.addEventListener("click", function (e) {
+                if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+                    sidebar.classList.remove("open");
+                }
+            });
+        });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

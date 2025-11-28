@@ -1,0 +1,70 @@
+﻿@using Core
+@model MongoDocumentInsertViewModel
+@{
+    ViewData["Title"] = "Insert Document";
+}
+
+<div class="card-dark mt-4">
+
+        <h5>Insert Document into Collection</h5>
+        <form asp-action="Insert" method="post">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label asp-for="DatabaseName" class="form-label">Database</label>
+                    <input asp-for="DatabaseName" class="form-control" placeholder="Database Name" />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="CollectionName" class="form-label">Collection</label>
+                    <input asp-for="CollectionName" class="form-control" placeholder="Collection Name" />
+                </div>
+                <div class="col-md-4">
+
+
+                    <select name="IsMultiple" class="form-control">
+                       
+
+                        @if (Model.IsMultiple == false)
+                        {
+                            <option value="false" selected>false</option>
+                        }
+                        else
+                        {
+                            <option value="false">false</option>
+                        }
+                        @if (Model.IsMultiple)
+                        {
+                            <option value="true" selected>True</option>
+                        }
+                        else
+                        {
+                            <option value="true">True</option>
+                        }
+                    </select>
+                <label class="form-check-label">IsMultiple</label>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="WriteConcern" class="form-label">Write Concern</label>
+                    <select asp-for="WriteConcern" class="form-select">
+                        <option value="">Default</option>
+                        <option value="majority">majority</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label asp-for="DocumentJson" class="form-label">Document JSON</label>
+                    <textarea asp-for="DocumentJson" class="form-control" rows="6" placeholder='{ "name": "test", "age": 30 }'></textarea>
+                </div>
+                <div class="col-12">
+                <button class="btn btn-success w-100 mt-3">Generate Script</button>
+                </div>
+            </div>
+        </form>
+        @await Html.PartialAsync("_ScriptResult", Model)
+
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

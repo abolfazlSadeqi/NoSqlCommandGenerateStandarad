@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="AppName" xml:space="preserve"><value>NoSQL Script </value></data>
+
+	<!-- Mongo -->
+  <data name="MongoDB" xml:space="preserve"><value>MongoDB</value></data>
+  <data name="Database Management" xml:space="preserve"><value>Database Management</value></data>
+  <data name="Create Database" xml:space="preserve"><value>Create Database</value></data>
+  <data name="Drop Database" xml:space="preserve"><value>Drop Database</value></data>
+  <data name="List Databases" xml:space="preserve"><value>List Databases</value></data>
+  <data name="Use Database" xml:space="preserve"><value>Use Database</value></data>
+
+  <data name="Collection Management" xml:space="preserve"><value>Collection Management</value></data>
+  <data name="Create Collection" xml:space="preserve"><value>Create Collection</value></data>
+  <data name="Drop Collection" xml:space="preserve"><value>Drop Collection</value></data>
+  <data name="List Collections" xml:space="preserve"><value>List Collections</value></data>
+  <data name="Rename Collection" xml:space="preserve"><value>Rename Collection</value></data>
+
+  <data name="Index Management" xml:space="preserve"><value>Index Management</value></data>
+  <data name="Create Index" xml:space="preserve"><value>Create Index</value></data>
+  <data name="Drop Index" xml:space="preserve"><value>Drop Index</value></data>
+  <data name="List Indexes" xml:space="preserve"><value>List Indexes</value></data>
+  <data name="Advanced Index Builder" xml:space="preserve"><value>Advanced Index Builder</value></data>
+
+  <data name="Document Operations" xml:space="preserve"><value>Document Operations</value></data>
+  <data name="Insert Document" xml:space="preserve"><value>Insert Document</value></data>
+  <data name="Update Document" xml:space="preserve"><value>Update Document</value></data>
+  <data name="Delete Document" xml:space="preserve"><value>Delete Document</value></data>
+
+  <data name="Query _ Bulk" xml:space="preserve"><value>Query _ Bulk</value></data>
+  <data name="Query Builder" xml:space="preserve"><value>Query Builder</value></data>
+  <data name="Bulk Operations" xml:space="preserve"><value>Bulk Operations</value></data>
+
+  <data name="Views" xml:space="preserve"><value>Views</value></data>
+  <data name="Manage Views" xml:space="preserve"><value>Manage Views</value></data>
+
+  <data name="Info _ Security" xml:space="preserve"><value>Info _ Security</value></data>
+  <data name="General Commands" xml:space="preserve"><value>General Commands</value></data>
+  <data name="Security / Users _ Roles" xml:space="preserve"><value>Security / Users _ Roles</value></data>
+
+  <!-- Redis -->
+  <data name="Redis" xml:space="preserve"><value>Redis</value></data>
+  <data name="Database" xml:space="preserve"><value>Database</value></data>
+  <data name="Manage Database" xml:space="preserve"><value>Manage Database</value></data>
+
+  <data name="Clear / Flush" xml:space="preserve"><value>Clear / Flush</value></data>
+  <data name="Clear Database" xml:space="preserve"><value>Clear Database</value></data>
+  <data name="Clear All Databases" xml:space="preserve"><value>Clear All Databases</value></data>
+  <data name="Clear By Pattern" xml:space="preserve"><value>Clear By Pattern</value></data>
+  <data name="Clear Expired Keys" xml:space="preserve"><value>Clear Expired Keys</value></data>
+
+  <data name="Key Operations" xml:space="preserve"><value>Key Operations</value></data>
+  <data name="Add Key" xml:space="preserve"><value>Add Key</value></data>
+  <data name="Update Key" xml:space="preserve"><value>Update Key</value></data>
+  <data name="Delete Key" xml:space="preserve"><value>Delete Key</value></data>
+  <data name="Set TTL" xml:space="preserve"><value>Set / Remove TTL</value></data>
+  <data name="Rename Key" xml:space="preserve"><value>Rename Key</value></data>
+  <data name="Persist Key" xml:space="preserve"><value>Persist Key</value></data>
+  <data name="Copy Key" xml:space="preserve"><value>Copy Key</value></data>
+  <data name="Move Key" xml:space="preserve"><value>Move Key</value></data>
+  <data name="Generic Key Ops" xml:space="preserve"><value>Generic Key Operations</value></data>
+
+  <data name="Key Inspector" xml:space="preserve"><value>Key Inspector</value></data>
+  <data name="Lists" xml:space="preserve"><value>Lists</value></data>
+  <data name="List Operations" xml:space="preserve"><value>List Operations</value></data>
+  <data name="Sets _ Sorted Sets" xml:space="preserve"><value>Sets _ Sorted Sets</value></data>
+  <data name="Hash Operations" xml:space="preserve"><value>Hash Operations</value></data>
+  <data name="Counters" xml:space="preserve"><value>Counters</value></data>
+  <data name="Search / Scan" xml:space="preserve"><value>Search / Scan</value></data>
+  <data name="Server Info" xml:space="preserve"><value>Server Info</value></data>
+
+  <data name="Security" xml:space="preserve"><value>Security</value></data>
+  <data name="Require Pass" xml:space="preserve"><value>Set requirepass</value></data>
+  <data name="ACL SetUser" xml:space="preserve"><value>ACL SETUSER</value></data>
+  <data name="ACL DelUser" xml:space="preserve"><value>ACL DELUSER</value></data>
+  <data name="ACL List" xml:space="preserve"><value>ACL LIST</value></data>
+  <data name="Reset Password" xml:space="preserve"><value>Reset Password</value></data>
+
+
+</root>

@@ -1,0 +1,36 @@
+﻿@using Core
+@model RedisHashOperationViewModel
+
+<div class="card-dark mt-4">
+        <h3>Redis Hash Operations</h3>
+        <form method="post" class="row g-3">
+            <div class="col-md-4">
+                <label>Key</label>
+                <input asp-for="Key" class="form-control bg-secondary text-light" />
+            </div>
+            <div class="col-md-4">
+                <label>Field</label>
+                <input asp-for="Field" class="form-control bg-secondary text-light" />
+            </div>
+            <div class="col-md-4">
+                <label>Value</label>
+                <input asp-for="Value" class="form-control bg-secondary text-light" />
+            </div>
+
+            <div class="col-12 mt-3">
+                <div class="btn-group flex-wrap" role="group">
+                    <button name="actionType" value="HSET" class="btn btn-primary">HSET</button>
+                    <button name="actionType" value="HGET" class="btn btn-info">HGET</button>
+                    <button name="actionType" value="HGETALL" class="btn btn-secondary">HGETALL</button>
+                    <button name="actionType" value="HDEL" class="btn btn-danger">HDEL</button>
+                </div>
+            </div>
+        </form>
+        @await Html.PartialAsync("_ScriptResult", Model)
+    
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

@@ -1,0 +1,135 @@
+﻿@using Core
+@model MongoQueryViewModel
+@{
+    ViewData["Title"] = "MongoDB Query Builder";
+}
+
+<div class="card-dark mt-4">
+        <h3 class="mb-3">MongoDB Query / Search</h3>
+
+        <form asp-action="Query" method="post">
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Database</label>
+                    <input asp-for="DatabaseName" class="form-control" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Collection</label>
+                    <input asp-for="CollectionName" class="form-control" />
+                </div>
+            </div>
+
+            <!-- Simplified Query Builder -->
+            <div class="dark-card">
+                <h5>Simple Condition Builder</h5>
+
+                <table class="table table-dark table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Operator</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody id="conditionsTable">
+                        <tr>
+                            <td><input name="Conditions[0].Field" class="form-control" placeholder="age" /></td>
+                            <td>
+                                <select name="Conditions[0].Operator" class="form-select">
+                                    <option value="eq">=</option>
+                                    <option value="gt">&gt;</option>
+                                    <option value="lt">&lt;</option>
+                                    <option value="gte">&gt;=</option>
+                                    <option value="lte">&lt;=</option>
+                                    <option value="ne">!=</option>
+                                    <option value="regex">Regex</option>
+                                    <option value="in">IN</option>
+                                    <option value="exists">Exists</option>
+                                </select>
+                            </td>
+                            <td><input name="Conditions[0].Value" class="form-control" placeholder="30 or /abc/ or true" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button type="button" class="btn btn-outline-light" onclick="addRow()">+ Add Condition</button>
+            </div>
+
+            <!-- JSON Fields -->
+            <div class="row mt-4">
+
+                <div class="col-md-4">
+                    <label class="form-label">Filter JSON</label>
+                    <textarea asp-for="FilterJson" rows="5" class="form-control json-box"
+                              placeholder='{ "age": { "$gt": 18 } }'></textarea>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Projection JSON</label>
+                    <textarea asp-for="ProjectionJson" rows="5" class="form-control json-box"
+                              placeholder='{ "name": 1, "age": 1 }'></textarea>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Sort JSON</label>
+                    <textarea asp-for="SortJson" rows="5" class="form-control json-box"
+                              placeholder='{ "age": -1 }'></textarea>
+                </div>
+
+            </div>
+
+            <!-- limit + skip -->
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    <label>Limit</label>
+                    <input asp-for="Limit" class="form-control" placeholder="e.g. 50" />
+                </div>
+                <div class="col-md-3">
+                    <label>Skip</label>
+                    <input asp-for="Skip" class="form-control" placeholder="e.g. 0" />
+                </div>
+            </div>
+
+        <button class="btn btn-success w-100 mt-3">Generate Script</button>
+
+        </form>
+
+
+
+    @await Html.PartialAsync("_ScriptResult", Model)
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        let rowIndex = 1;
+        function addRow() {
+            const table = document.getElementById("conditionsTable");
+            const row = `
+                <tr>
+                    <td><input name="Conditions[${rowIndex}].Field" class="form-control" /></td>
+                    <td>
+                        <select name="Conditions[${rowIndex}].Operator" class="form-select">
+                            <option value="eq">=</option>
+                            <option value="gt">&gt;</option>
+                            <option value="lt">&lt;</option>
+                            <option value="gte">&gt;=</option>
+                            <option value="lte">&lt;=</option>
+                            <option value="ne">!=</option>
+                            <option value="regex">Regex</option>
+                            <option value="in">IN</option>
+                            <option value="exists">Exists</option>
+                        </select>
+                    </td>
+                    <td><input name="Conditions[${rowIndex}].Value" class="form-control" /></td>
+                </tr>`;
+            table.insertAdjacentHTML("beforeend", row);
+            rowIndex++;
+        }
+
+    </script>
+
+
+}

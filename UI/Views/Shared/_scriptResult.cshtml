@@ -1,0 +1,16 @@
+﻿@if (!string.IsNullOrWhiteSpace(Model.GeneratedScript))
+{
+    <hr />
+    <h5 class="mb-3">Generated NoSQL Script</h5>
+
+    <div class="d-flex gap-2 mb-2">
+        <button id="copyButton" class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy</button>
+        <a class="btn btn-sm btn-outline-success"
+           href="data:text/plain;charset=utf-8,@Uri.EscapeDataString(Model.GeneratedScript)"
+           download="script.text">Download</a>
+    </div>
+
+    <div class="script-box">
+        <pre id="scriptArea">@Model.GeneratedScript</pre>
+    </div>
+}

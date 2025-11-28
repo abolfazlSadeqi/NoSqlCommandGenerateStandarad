@@ -1,0 +1,38 @@
+﻿@using Core
+@model RedisSearchViewModel
+<div class="card-dark mt-4">
+        <h3>Redis Search Queries</h3>
+        <form method="post" class="row g-3">
+
+            <div class="col-md-4">
+                <label>Pattern</label>
+                <input asp-for="Pattern" class="form-control bg-secondary text-light" placeholder="e.g. user:*" />
+            </div>
+
+            <div class="col-md-4">
+                <label>Count (SCAN)</label>
+                <input asp-for="Count" class="form-control bg-secondary text-light" type="number" />
+            </div>
+
+            <div class="col-md-4">
+                <label>Filter (Optional)</label>
+                <input asp-for="Filter" class="form-control bg-secondary text-light" placeholder="e.g. age>30" />
+            </div>
+
+            <div class="col-12 mt-3">
+                <div class="btn-group flex-wrap" role="group">
+                    <button name="actionType" value="SCAN" class="btn btn-primary">SCAN</button>
+                    <button name="actionType" value="Pattern" class="btn btn-info">Pattern Match</button>
+                    <button name="actionType" value="Filter" class="btn btn-warning">Filter Builder</button>
+                </div>
+            </div>
+        </form>
+
+        @await Html.PartialAsync("_ScriptResult", Model)
+    
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

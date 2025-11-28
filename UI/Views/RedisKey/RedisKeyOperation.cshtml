@@ -1,0 +1,44 @@
+﻿@using Core
+@model RedisKeyOperationViewModel
+<div class="card-dark mt-4">
+        <h3>Redis Key Operations</h3>
+        <form method="post" class="row g-3">
+            <div class="col-md-4">
+                <label>Key</label>
+                <input asp-for="Key" class="form-control bg-secondary text-light" />
+            </div>
+            <div class="col-md-4">
+                <label>Value (if applicable)</label>
+                <input asp-for="Value" class="form-control bg-secondary text-light" />
+            </div>
+            <div class="col-md-2">
+                <label>Expire Seconds (Optional)</label>
+                <input asp-for="ExpireSeconds" class="form-control bg-secondary text-light" type="number" />
+            </div>
+            <div class="col-md-2">
+                <label>New Key (for RENAME)</label>
+                <input asp-for="NewKey" class="form-control bg-secondary text-light" />
+            </div>
+
+            <div class="col-12 mt-3">
+                <div class="btn-group" role="group">
+                    <button name="actionType" value="SET" class="btn btn-info">SET</button>
+                    <button name="actionType" value="GET" class="btn btn-secondary">GET</button>
+                    <button name="actionType" value="DEL" class="btn btn-danger">DEL</button>
+                    <button name="actionType" value="EXISTS" class="btn btn-warning">EXISTS</button>
+                    <button name="actionType" value="RENAME" class="btn btn-primary">RENAME</button>
+                    <button name="actionType" value="TTL" class="btn btn-success">TTL</button>
+                    <button name="actionType" value="INCR" class="btn btn-dark">INCR</button>
+                    <button name="actionType" value="APPEND" class="btn btn-light text-dark">APPEND</button>
+                </div>
+            </div>
+        </form>
+
+        @await Html.PartialAsync("_ScriptResult", Model)
+    
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+}

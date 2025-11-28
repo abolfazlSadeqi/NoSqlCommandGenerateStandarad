@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="AppName" xml:space="preserve"><value> ساخت اسکریپت NoSQL</value></data>
+
+	<!-- Mongo -->
+	<data name="MongoDB" xml:space="preserve"><value>مونگو‌دی‌بی</value></data>
+	<data name="Database Management" xml:space="preserve"><value>مدیریت دیتابیس</value></data>
+	<data name="Create Database" xml:space="preserve"><value>ایجاد دیتابیس</value></data>
+	<data name="Drop Database" xml:space="preserve"><value>حذف دیتابیس</value></data>
+	<data name="List Databases" xml:space="preserve"><value>لیست دیتابیس‌ها</value></data>
+	<data name="Use Database" xml:space="preserve"><value>انتخاب دیتابیس (use)</value></data>
+
+	<data name="Collection Management" xml:space="preserve"><value>مدیریت کالکشن</value></data>
+	<data name="Create Collection" xml:space="preserve"><value>ایجاد کالکشن</value></data>
+	<data name="Drop Collection" xml:space="preserve"><value>حذف کالکشن</value></data>
+	<data name="List Collections" xml:space="preserve"><value>نمایش کالکشن‌ها</value></data>
+	<data name="Rename Collection" xml:space="preserve"><value>تغییر نام کالکشن</value></data>
+
+	<data name="Index Management" xml:space="preserve"><value>مدیریت ایندکس</value></data>
+	<data name="Create Index" xml:space="preserve"><value>ایجاد ایندکس</value></data>
+	<data name="Drop Index" xml:space="preserve"><value>حذف ایندکس</value></data>
+	<data name="List Indexes" xml:space="preserve"><value>نمایش ایندکس‌ها</value></data>
+	<data name="Advanced Index Builder" xml:space="preserve"><value>سازنده پیشرفته ایندکس</value></data>
+
+	<data name="Document Operations" xml:space="preserve"><value>عملیات سند</value></data>
+	<data name="Insert Document" xml:space="preserve"><value>درج سند</value></data>
+	<data name="Update Document" xml:space="preserve"><value>به‌روز رسانی سند</value></data>
+	<data name="Delete Document" xml:space="preserve"><value>حذف سند</value></data>
+
+	<data name="Query _ Bulk" xml:space="preserve"><value>کوئری و عملیات گروهی</value></data>
+	<data name="Query Builder" xml:space="preserve"><value>سازنده کوئری</value></data>
+	<data name="Bulk Operations" xml:space="preserve"><value>عملیات گروهی</value></data>
+
+	<data name="Views" xml:space="preserve"><value>ویو‌ها</value></data>
+	<data name="Manage Views" xml:space="preserve"><value>مدیریت ویو</value></data>
+
+	<data name="Info _ Security" xml:space="preserve"><value>اطلاعات و امنیت</value></data>
+	<data name="General Commands" xml:space="preserve"><value>دستورات عمومی</value></data>
+	<data name="Security / Users _ Roles" xml:space="preserve"><value>امنیت / کاربران و نقش‌ها</value></data>
+
+	<!-- Redis -->
+	<data name="Redis" xml:space="preserve"><value>ردیس</value></data>
+	<data name="Database" xml:space="preserve"><value>دیتابیس</value></data>
+	<data name="Manage Database" xml:space="preserve"><value>مدیریت دیتابیس</value></data>
+
+	<data name="Clear / Flush" xml:space="preserve"><value>پاکسازی / فلَش</value></data>
+	<data name="Clear Database" xml:space="preserve"><value>پاکسازی دیتابیس</value></data>
+	<data name="Clear All Databases" xml:space="preserve"><value>پاکسازی همه دیتابیس‌ها</value></data>
+	<data name="Clear By Pattern" xml:space="preserve"><value>پاکسازی بر اساس الگو</value></data>
+	<data name="Clear Expired Keys" xml:space="preserve"><value>پاکسازی کلیدهای منقضی</value></data>
+
+	<data name="Key Operations" xml:space="preserve"><value>عملیات کلید</value></data>
+	<data name="Add Key" xml:space="preserve"><value>افزودن کلید</value></data>
+	<data name="Update Key" xml:space="preserve"><value>به‌روز رسانی کلید</value></data>
+	<data name="Delete Key" xml:space="preserve"><value>حذف کلید</value></data>
+	<data name="Set TTL" xml:space="preserve"><value>تنظیم TTL</value></data>
+	<data name="Rename Key" xml:space="preserve"><value>تغییر نام کلید</value></data>
+	<data name="Persist Key" xml:space="preserve"><value>حذف TTL (Persist)</value></data>
+	<data name="Copy Key" xml:space="preserve"><value>کپی کلید</value></data>
+	<data name="Move Key" xml:space="preserve"><value>جابجایی کلید</value></data>
+	<data name="Generic Key Ops" xml:space="preserve"><value>عملیات عمومی کلید</value></data>
+
+	<data name="Key Inspector" xml:space="preserve"><value>بازرس کلید</value></data>
+	<data name="Lists" xml:space="preserve"><value>لیست‌ها</value></data>
+	<data name="List Operations" xml:space="preserve"><value>عملیات لیست</value></data>
+	<data name="Sets _ Sorted Sets" xml:space="preserve"><value>ست‌ها و زِت‌ها</value></data>
+	<data name="Hash Operations" xml:space="preserve"><value>عملیات هش</value></data>
+	<data name="Counters" xml:space="preserve"><value>کانترها</value></data>
+	<data name="Search / Scan" xml:space="preserve"><value>جستجو / اسکن</value></data>
+	<data name="Server Info" xml:space="preserve"><value>اطلاعات سرور</value></data>
+
+	<data name="Security" xml:space="preserve"><value>امنیت</value></data>
+	<data name="Require Pass" xml:space="preserve"><value>تنظیم requirepass</value></data>
+	<data name="ACL SetUser" xml:space="preserve"><value>ایجاد/تنظیم کاربر (ACL SETUSER)</value></data>
+	<data name="ACL DelUser" xml:space="preserve"><value>حذف کاربر (ACL DELUSER)</value></data>
+	<data name="ACL List" xml:space="preserve"><value>لیست ACL</value></data>
+	<data name="Reset Password" xml:space="preserve"><value>تنظیم مجدد رمز</value></data>
+
+</root>

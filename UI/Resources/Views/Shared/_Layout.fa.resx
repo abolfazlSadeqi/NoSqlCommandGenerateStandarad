@@ -40,7 +40,7 @@
 	<data name="Delete Document" xml:space="preserve"><value>حذف سند</value></data>
 
 	<data name="Query _ Bulk" xml:space="preserve"><value>کوئری و عملیات گروهی</value></data>
-	<data name="Query Builder" xml:space="preserve"><value>سازنده کوئری</value></data>
+	<data name="Query Builder" xml:space="preserve"><value>Builder کوئری</value></data>
 	<data name="Bulk Operations" xml:space="preserve"><value>عملیات گروهی</value></data>
 
 	<data name="Views" xml:space="preserve"><value>ویو‌ها</value></data>
@@ -72,7 +72,7 @@
 	<data name="Move Key" xml:space="preserve"><value>جابجایی کلید</value></data>
 	<data name="Generic Key Ops" xml:space="preserve"><value>عملیات عمومی کلید</value></data>
 
-	<data name="Key Inspector" xml:space="preserve"><value>بازرس کلید</value></data>
+	<data name="Key Inspector" xml:space="preserve"><value>جستجو کلید</value></data>
 	<data name="Lists" xml:space="preserve"><value>لیست‌ها</value></data>
 	<data name="List Operations" xml:space="preserve"><value>عملیات لیست</value></data>
 	<data name="Sets _ Sorted Sets" xml:space="preserve"><value>ست‌ها و زِت‌ها</value></data>

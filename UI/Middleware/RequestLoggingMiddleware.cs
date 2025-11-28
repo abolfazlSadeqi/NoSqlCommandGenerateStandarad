@@ -25,64 +25,65 @@ namespace UI.Middleware
         {
             var sw = Stopwatch.StartNew();
 
+            // --- تعیین CorrelationId ---
+            var correlationId = context.TraceIdentifier;
+            if (!context.Request.Headers.ContainsKey("X-Correlation-ID"))
+            {
+                context.Request.Headers["X-Correlation-ID"] = correlationId;
+            }
+
+            // --- تعیین IP ---
+            var ip = context.Connection.RemoteIpAddress?.ToString();
+
+            // --- تعیین User ---
+            var user = context.User?.Identity?.IsAuthenticated == true
+                ? context.User.Identity.Name
+                : "Anonymous";
+
+            // --- استخراج اکشن/کنترلر ---
+            var endpoint = context.GetEndpoint();
+            var actionDescriptor = endpoint?.Metadata.GetMetadata<ControllerActionDescriptor>();
+
+            // اگر درخواست مربوط به MVC Action نباشد → لاگ نزن
+            if (actionDescriptor == null)
+            {
+                await _next(context);
+                return;
+            }
+
             var method = context.Request.Method;
             var path = context.Request.Path;
+            var controller = actionDescriptor.ControllerName;
+            var action = actionDescriptor.ActionName;
 
-            // در اینجا اطلاعات کنترلر و اکشن را پیدا می‌کنیم
-            string controller = null;
-            string action = null;
-
-            var routeData = context.GetRouteData();
-            if (routeData?.Values.ContainsKey("controller") == true)
-            {
-                controller = routeData.Values["controller"]?.ToString();
-            }
-            if (routeData?.Values.ContainsKey("action") == true)
-            {
-                action = routeData.Values["action"]?.ToString();
-            }
-
-            if (string.IsNullOrEmpty(controller) || string.IsNullOrEmpty(action))
-            {
-                // اگر اطلاعات کنترلر یا اکشن خالی بود، از ActionDescriptor استفاده می‌کنیم
-                var endpoint = context.GetEndpoint();
-                if (endpoint != null)
-                {
-                    var actionDescriptor = endpoint.Metadata.GetMetadata<ControllerActionDescriptor>();
-                    if (actionDescriptor != null)
-                    {
-                        controller = actionDescriptor.ControllerName;
-                        action = actionDescriptor.ActionName;
-                    }
-                }
-            }
-
-            // لاگ شروع درخواست
+            // --- لاگ شروع ---
             Log.Information(
-                "Step:START Request {Method} {Path} | Controller: {Controller} | Action: {Action} | Time: {Time}",
-                method, path, controller, action, DateTime.UtcNow);
+                "START {Method} {Path} | Ctrl:{Controller} | Act:{Action} | User:{User} | IP:{IP} | CorrelationId:{CorrelationId}",
+                method, path, controller, action, user, ip, correlationId);
 
             try
             {
-                await _next(context); // اجرای درخواست
+                await _next(context);
 
-                sw.Stop(); // زمان‌سنجی بعد از پایان درخواست
-                // لاگ پایان درخواست
+                sw.Stop();
+
+                // --- لاگ پایان ---
                 Log.Information(
-                    "Step:END Request {Method} {Path} | Controller: {Controller} | Action: {Action} | Duration: {Duration}ms",
-                    method, path, controller, action, sw.ElapsedMilliseconds);
+                    "END {Method} {Path} | Ctrl:{Controller} | Act:{Action} | User:{User} | IP:{IP} | CorrelationId:{CorrelationId} | {Duration}ms",
+                    method, path, controller, action, user, ip, correlationId, sw.ElapsedMilliseconds);
             }
             catch (Exception ex)
             {
-                sw.Stop(); // زمان‌سنجی در صورت بروز خطا
-                // لاگ خطا
-                Log.Error(
-                    ex,
-                    "Step:ERROR in Request {Method} {Path} | Controller: {Controller} | Action: {Action} | Duration: {Duration}ms",
-                    method, path, controller, action, sw.ElapsedMilliseconds);
+                sw.Stop();
 
-                throw; // باز انداختن خطا
+                // --- لاگ خطا ---
+                Log.Error(ex,
+                    "ERROR {Method} {Path} | Ctrl:{Controller} | Act:{Action} | User:{User} | IP:{IP} | CorrelationId:{CorrelationId} | {Duration}ms",
+                    method, path, controller, action, user, ip, correlationId, sw.ElapsedMilliseconds);
+
+                throw;
             }
         }
+
     }
 }

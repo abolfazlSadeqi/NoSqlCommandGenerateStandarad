@@ -66,6 +66,7 @@ builder.Services.AddSingleton<IRedisSearchService, RedisSearchService>();
 
 
 var app = builder.Build();
+app.UseRouting();
 // استفاده از میدل‌ور
 app.UseMiddleware<RequestLoggingMiddleware>();
 
@@ -79,7 +80,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
+
 
 // تنظیم فرهنگ‌ها
 var supportedCultures = new[] { new CultureInfo("fa-IR"), new CultureInfo("en-US") };
